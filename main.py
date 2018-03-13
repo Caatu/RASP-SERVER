@@ -22,6 +22,7 @@ def initializeConnection(username, password, client_id, broker, port):
 
     client.on_connect   =   on_connect
     client.on_log       =   on_log
+    client.on_message   =   on_message
     print("Connecting to broker")
     try:
         client.connect(broker,port=port)
@@ -67,12 +68,12 @@ def main():
     load_dotenv()
     username = os.getenv("BROKER-USERNAME")
     password = os.getenv("BROKER-PASSWORD")
-    client_id = os.getenv("CLIENTID")
+    client_id = os.getenv("USERNAME")
     broker = os.getenv("BROKER-IP")
     port = int(os.getenv("BROKER-PORT"))
     # Initializing components
     initializeConnection(username,password,client_id,broker,port)
-    # Sending data
+    # Sending data TESTES APENAS
     Mensagens = 10
     print("Subscribing to topic")
     subscribeTopic('teste/topico')
