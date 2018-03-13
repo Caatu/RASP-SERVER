@@ -42,12 +42,18 @@ def initializeConnection(username, password, client_id, broker, port):
 
 
 def finish():
+    """
+        Finish the loop of callbacks and exit
+    """
     client.disconnect()
     client.loop_stop()
     sys.exit()
 
 
 def generateObjetc(name, measurement, unit):
+    """
+        Generate an python dict and serialize to json object
+    """
     data = {
         'name': name,
         'measurement': measurement,
@@ -57,13 +63,24 @@ def generateObjetc(name, measurement, unit):
 
 
 def sendData(topic, jsonObject):
+    """
+        Publish string to connected client
+    """
     client.publish(topic,jsonObject)
     print("Data sent")
 
 def subscribeTopic(topic):
+    """
+        Subscribe to an topic in connected client
+    """
     client.subscribe(topic)
 
 def main():
+    """
+        Start the script, loading all settings and starting connections
+
+        UNDER DEVELOPMENT, ONLY TESTS HERE...
+    """
     # Loading dotenv data
     load_dotenv()
     username = os.getenv("BROKER-USERNAME")
