@@ -43,7 +43,7 @@ def initializeConnection(username, password, client_id, broker, port):
 
 def finish():
     """
-        Finish the loop of callbacks and exit
+        Finish the loop of callbacks from paho-mqtt and exit the program
     """
     client.disconnect()
     client.loop_stop()
