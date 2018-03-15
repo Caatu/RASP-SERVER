@@ -1,6 +1,10 @@
 import configparser
 
 def getSensorsDict():
+    """
+        Get the list of sensors in sensors.ini file, and return all information about all sensors 
+        Including actual meassurement and math calc to get the real result 
+    """
     sensors = configparser.ConfigParser()
     sensors.read("sensors.ini")
     sensorList = {}
@@ -14,7 +18,11 @@ def getSensorsDict():
         x = getSensorData(gpio)
         data['meassure'] = eval(data['math'])
         sensorList[gpio] = data
-    print(sensorList)
+    return sensorList
 
 def getSensorData(gpio):
+    """
+        Read the information in GPIO port of raspberry.
+        TODO: implement
+    """
     return 0
