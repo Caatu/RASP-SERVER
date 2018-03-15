@@ -2,7 +2,7 @@ import json, time, os, sys
 import paho.mqtt.client as mqtt
 from dotenv import load_dotenv
 from callbacks import *
-
+from getsensors import *
 
 def initializeConnection(username, password, client_id, broker, port):
     """
@@ -91,14 +91,14 @@ def main():
     # Initializing components
     initializeConnection(username,password,client_id,broker,port)
     # Sending data TESTES APENAS
-    Mensagens = 10
-    print("Subscribing to topic")
-    subscribeTopic('/gustavoguerino2@gmail.com/#')
-    while Mensagens != 0:
-        Mensagens -= 1
-        time.sleep(1)
-        sendData('/gustavoguerino2@gmail.com/temp/', generateObjetc('Temperatura',20-Mensagens,'Celsius'))
-
+    # Mensagens = 10
+    # print("Subscribing to topic")
+    # subscribeTopic('/gustavoguerino2@gmail.com/#')
+    # while Mensagens != 0:
+    #     Mensagens -= 1
+    #     time.sleep(1)
+    #     sendData('/gustavoguerino2@gmail.com/temp/', generateObjetc('Temperatura',20-Mensagens,'Celsius'))
+    getSensorsDict()
 
 if __name__ == "__main__":
     # execute only if run as a script
