@@ -73,7 +73,7 @@ def subscribeTopic(topic):
     """
         Subscribe to an topic in connected client
     """
-    client.subscribe(topic)
+    client.subscribe(otopic)
 
 def main():
     """
@@ -93,11 +93,11 @@ def main():
     # Sending data TESTES APENAS
     Mensagens = 10
     print("Subscribing to topic")
-    subscribeTopic('teste/topico')
+    subscribeTopic('/gustavoguerino2@gmail.com/#')
     while Mensagens != 0:
         Mensagens -= 1
         time.sleep(1)
-        sendData('teste/topico', generateObjetc('Temperatura','20.4','Celsius'))
+        sendData('/gustavoguerino2@gmail.com/temp/', generateObjetc('Temperatura',20-Mensagens,'Celsius'))
 
 
 if __name__ == "__main__":

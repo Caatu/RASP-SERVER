@@ -21,7 +21,7 @@ def on_log(client, userdata, level, buf):
     print("Log: ",buf)
 
 def on_message(client, userdata, message):
-    print("message received " ,str(message.payload.decode("utf-8")))
-    print("message topic=",message.topic)
-    print("message qos=",message.qos)
-    print("message retain flag=",message.retain)
+    print("Message received " ,str(message.payload.decode("utf-8")))
+    print("Message topic=",message.topic)
+    print("Message qos=",message.qos)
+    print("Message retain flag=",message.retain)
