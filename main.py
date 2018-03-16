@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import json, time, os, sys
 import paho.mqtt.client as mqtt
 from dotenv import load_dotenv
@@ -82,14 +83,15 @@ def main():
         UNDER DEVELOPMENT, ONLY TESTS HERE...
     """
     # Loading dotenv data
-    load_dotenv()
+    envpath = os.getcwd()+"/.env"
+    load_dotenv(verbose=True,dotenv_path = envpath)
     username = os.getenv("BROKER-USERNAME")
     password = os.getenv("BROKER-PASSWORD")
     client_id = os.getenv("USERNAME")
     broker = os.getenv("BROKER-IP")
-    port = int(os.getenv("BROKER-PORT"))
+    port = os.getenv("BROKER-PORT")
     # Initializing components
-    initializeConnection(username,password,client_id,broker,port)
+    # initializeConnection(username,password,client_id,broker,port)
     # Sending data TESTES APENAS
     # Mensagens = 10
     # print("Subscribing to topic")
