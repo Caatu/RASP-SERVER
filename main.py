@@ -100,7 +100,7 @@ def main():
     #     Mensagens -= 1
     #     time.sleep(1)
     #     sendData('/gustavoguerino2@gmail.com/temp/', generateObjetc('Temperatura',20-Mensagens,'Celsius'))
-    getSensorsDict()
+    print(getSensorsList())
 
 if __name__ == "__main__":
     # execute only if run as a script
