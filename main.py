@@ -118,7 +118,7 @@ def main():
     while(not error):
         sensorList = getSensorsList()
         for sensor in sensorList:
-            topic = f"/gustavoguerino2@gmail.com/{getMAC()}/{sensor['name']}/{sensor['meassurementType']}"
+            topic = f"/gustavoguerino2@gmail.com/{ getMAC() }/{ sensor['name'] }/{ sensor['meassurementType'] }/"
             data = generateObjetc(sensor['name'], sensor['meassurement'] ,sensor['meassurementUnit'])
             sendData(topic,data)
             # Sleep 10 seconds and send data again
