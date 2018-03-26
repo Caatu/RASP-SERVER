@@ -11,7 +11,7 @@ def getSensorsList():
     sensorList = []
     for name in sensors.sections():
         sensor = sensors[name]
-        data = getSensorData(sensor)
+        data = getSensorData(name, sensor)
         sensorList.append(data)
     return sensorList
 
@@ -21,7 +21,7 @@ def getSensorData(sensor):
         TODO: implement
     """
     data = {
-        'name': sensor.get('name', 'no_name'),
+        'name': name,
     }
     sensorType = sensor.get('type', '')
     if(sensorType == 'cpuTemperatura'):
