@@ -25,6 +25,7 @@ def getSensorData(name, sensor):
     }
     sensorType = sensor.get('type', '')
     if(sensorType == 'cpuTemperatura'):
+        cpu = CPUTemperature()
         data['meassurement'] = cpu.temperature
 
     return data
