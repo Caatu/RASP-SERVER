@@ -15,7 +15,7 @@ def getSensorsList():
         sensorList.append(data)
     return sensorList
 
-def getSensorData(sensor):
+def getSensorData(name, sensor):
     """
         Read the information in GPIO port of raspberry.
         TODO: implement
