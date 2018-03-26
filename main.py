@@ -28,11 +28,11 @@ def initializeConnection(username, password, client_id, broker, port):
     client.on_message   =   on_message
     client.username_pw_set(username=username, password=password)
     print("Connecting to broker")
-    try:
-        client.connect(broker,port=port)
-    except:
-        print("Connection failed")
-        client.bad_connection_flag = True
+    #try:
+    client.connect(broker,port=port)
+    #except:
+    #    print("Connection failed")
+    #    client.bad_connection_flag = True
     client.loop_start()
     # Wait to connection success or error occur
     while not client.connected_flag and not client.bad_connection_flag:
@@ -95,7 +95,7 @@ def subscribeTopic(topic):
     """
         Subscribe to an topic in connected client
     """
-    client.subscribe(otopic)
+    client.subscribe(topic)
 
 def main():
     """
@@ -110,7 +110,7 @@ def main():
     password = os.getenv("BROKER-PASSWORD")
     client_id = getpass.getuser()
     broker = os.getenv("BROKER-IP")
-    port = os.getenv("BROKER-PORT")
+    port = int(os.getenv("BROKER-PORT"))
     # Initializing components
     initializeConnection(username,password,client_id,broker,port)
     # Subscribe to receive all messages.... Tests...
@@ -120,7 +120,7 @@ def main():
     while(not error):
         sensorList = getSensorsList()
         for sensor in sensorList:
-
+    
             topic = "/gustavoguerino2@gmail.com/{}/{}/{}/".format(getMAC(), sensor['name'], sensor['meassurementType'])
             data = generateObjetc(sensor['name'], sensor['meassurement'] ,sensor['meassurementUnit'])
             sendData(topic,data)
