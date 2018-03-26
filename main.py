@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 from dotenv import load_dotenv
 from callbacks import *
 from getsensors import *
+from time import sleep
 
 def initializeConnection(username, password, client_id, broker, port):
     """
@@ -62,6 +63,24 @@ def generateObjetc(name, measurement, unit):
     }
     return json.dumps(data)
 
+def getMAC():
+  # Return the MAC address of the specified interface
+  try:
+    str = open('/sys/class/net/%s/address' % getEthName()).read()
+  except:
+    str = "00:00:00:00:00:00"
+  return str[0:17]
+
+def getEthName():
+  # Get name of the Ethernet interface
+  try:
+    for root,dirs,files in os.walk('/sys/class/net'):
+      for dir in dirs:
+        if dir[:3]=='enx' or dir[:3]=='eth':
+          interface=dir
+  except:
+    interface="None"
+  return interface
 
 def sendData(topic, jsonObject):
     """
@@ -91,17 +110,19 @@ def main():
     broker = os.getenv("BROKER-IP")
     port = os.getenv("BROKER-PORT")
     # Initializing components
-    # initializeConnection(username,password,client_id,broker,port)
-    # Sending data TESTES APENAS
-    # Mensagens = 10
-    # print("Subscribing to topic")
-    # subscribeTopic('/gustavoguerino2@gmail.com/#')
-    # while Mensagens != 0:
-    #     Mensagens -= 1
-    #     time.sleep(1)
-    #     sendData('/gustavoguerino2@gmail.com/temp/', generateObjetc('Temperatura',20-Mensagens,'Celsius'))
-    print(getSensorsList())
-
+    initializeConnection(username,password,client_id,broker,port)
+    # Subscribe to receive all messages.... Tests...
+    subscribeTopic('/gustavoguerino2@gmail.com/#')
+    # Sending data
+    error = False
+    while(not error):
+        sensorList = getSensorsList()
+        for sensor in sensorList:
+            topic = f"/gustavoguerino2@gmail.com/{getMAC()}/{sensor['name']/sensor['meassurementType']}"
+            data = generateObjetc(sensor['name'], sensor['meassurement'] ,sensor['meassurementUnit'])
+            sendData(topic,data)
+            # Sleep 10 seconds and send data again
+            sleep(10)
 if __name__ == "__main__":
     # execute only if run as a script
     main()
