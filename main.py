@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import json, time, os, sys
 import paho.mqtt.client as mqtt
+import getpass
+
 from dotenv import load_dotenv
 from callbacks import *
 from getsensors import *
@@ -106,7 +108,7 @@ def main():
     load_dotenv(verbose=True,dotenv_path = envpath)
     username = os.getenv("BROKER-USERNAME")
     password = os.getenv("BROKER-PASSWORD")
-    client_id = os.getenv("USERNAME")
+    client_id = getpass.getuser()
     broker = os.getenv("BROKER-IP")
     port = os.getenv("BROKER-PORT")
     # Initializing components
