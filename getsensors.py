@@ -30,12 +30,12 @@ def getSensorData(name, sensor):
         data['meassurement'] = cpu.temperature
         data['meassurementType'] = 'temperatura'
         data['meassurementUnit'] = 'Celsius'
-    else if(sensorType == 'dht22Temperatura'):
+    elif(sensorType == 'dht22Temperatura'):
         humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, sensor.get('gpio'))
         data['meassurement'] = temperature
         data['meassurementType'] = 'temperatura'
         data['meassurementUnit'] = 'Celsius'
-    else if(sensorType == 'dht22Umidade'):
+    elif(sensorType == 'dht22Umidade'):
         humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, sensor.get('gpio'))
         data['meassurement'] = humidity
         data['meassurementType'] = 'umidade'
