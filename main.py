@@ -2,6 +2,7 @@
 import json, time, os, sys
 import paho.mqtt.client as mqtt
 import getpass
+import Adafruit_DHT
 
 from dotenv import load_dotenv
 from callbacks import *
@@ -118,7 +119,7 @@ def main():
     # Sending data
     error = False
     while(not error):
-        sensorList = getSensorsList()       # /ruhfjdsfb/#
+        sensorList = getSensorsList() 
         for sensor in sensorList:
             topic = "/gustavoguerino2@gmail.com/{}/{}/{}/".format(getMAC(), sensor['name'], sensor['meassurementType'])
             data = generateObjetc(sensor['name'], sensor['meassurement'] ,sensor['meassurementUnit'])
