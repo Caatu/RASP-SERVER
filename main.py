@@ -2,7 +2,6 @@
 import json, time, os, sys
 import paho.mqtt.client as mqtt
 import getpass
-import Adafruit_DHT
 
 from dotenv import load_dotenv
 from callbacks import *

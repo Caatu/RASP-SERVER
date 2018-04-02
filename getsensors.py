@@ -1,3 +1,4 @@
+import Adafruit_DHT
 import configparser
 from gpiozero import CPUTemperature
 
