@@ -54,12 +54,11 @@ def finish():
     sys.exit()
 
 
-def generateObjetc(name, measurement, unit):
+def generateObjetc(measurement, unit):
     """
         Generate an python dict and serialize to json object
     """
     data = {
-        'name': name,
         'measurement': measurement,
         'unit': unit
     }
@@ -121,10 +120,10 @@ def main():
         sensorList = getSensorsList() 
         for sensor in sensorList:
             topic = "/gustavoguerino2@gmail.com/{}/{}/{}/".format(getMAC(), sensor['name'], sensor['meassurementType'])
-            data = generateObjetc(sensor['name'], sensor['meassurement'] ,sensor['meassurementUnit'])
+            data = generateObjetc(sensor['meassurement'] ,sensor['meassurementUnit'])
             sendData(topic,data)
             # Sleep 10 seconds and send data again
-            sleep(10)
+        sleep(10)
 if __name__ == "__main__":
     # execute only if run as a script
     main()

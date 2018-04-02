@@ -13,7 +13,7 @@ def getSensorsList():
     for name in sensors.sections():
         sensor = sensors[name]
         data = getSensorData(name, sensor)
-        sensorList.extend(data)
+        sensorList.append(data)
     return sensorList
 
 def getSensorData(name, sensor):
@@ -32,12 +32,12 @@ def getSensorData(name, sensor):
         data['meassurementType'] = 'temperatura'
         data['meassurementUnit'] = 'Celsius'
     elif(sensorType == 'dht22Temperatura'):
-        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, sensor.get('gpio'))
+        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, int(sensor.get('gpio')))
         data['meassurement'] = temperature
         data['meassurementType'] = 'temperatura'
         data['meassurementUnit'] = 'Celsius'
     elif(sensorType == 'dht22Umidade'):
-        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, sensor.get('gpio'))
+        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, int(sensor.get('gpio')))
         data['meassurement'] = humidity
         data['meassurementType'] = 'umidade'
         data['meassurementUnit'] = 'Porcentagem'
