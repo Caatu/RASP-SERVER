@@ -26,3 +26,7 @@ cp .env.example .env
 # Dentro da pasta do projeto execute:
 python main.py
  ```
+
+ ### Padrão de Rotas do MQTT
+
+ ## T

@@ -118,9 +118,8 @@ def main():
     # Sending data
     error = False
     while(not error):
-        sensorList = getSensorsList()
+        sensorList = getSensorsList()       # /ruhfjdsfb/#
         for sensor in sensorList:
-
             topic = "/gustavoguerino2@gmail.com/{}/{}/{}/".format(getMAC(), sensor['name'], sensor['meassurementType'])
             data = generateObjetc(sensor['name'], sensor['meassurement'] ,sensor['meassurementUnit'])
             sendData(topic,data)

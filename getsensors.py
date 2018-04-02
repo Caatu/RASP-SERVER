@@ -12,7 +12,7 @@ def getSensorsList():
     for name in sensors.sections():
         sensor = sensors[name]
         data = getSensorData(name, sensor)
-        sensorList.append(data)
+        sensorList.extend(data)
     return sensorList
 
 def getSensorData(name, sensor):
