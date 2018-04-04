@@ -5,8 +5,8 @@ import configparser
 def activeAlert(alert):
     if(alert['type'] == 'buzzerAlert'):
         GPIO.setmode(GPIO.BCM)
-	    GPIO.setup(alert['gpio'], GPIO.IN)
-	    GPIO.setup(alert['gpio'], GPIO.OUT)
+        GPIO.setup(alert['gpio'], GPIO.IN)
+        GPIO.setup(alert['gpio'], GPIO.OUT)
 
         period = 1.0 / 3951 		 
         delayValue = period / 2		 
