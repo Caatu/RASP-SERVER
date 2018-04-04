@@ -35,6 +35,6 @@ def compareAlerts(sensorMeassurements):
         for meassurement in sensorMeassurements:
             if alert['sensorName'] == meassurement['name']:
                 # Check if the meassurement of the sensor is in the range of the alert
-                if(meassurement['meassurement'] < alert['min'] and 
-                    meassurement['meassurement'] > alert['max']):
+                if(float(meassurement['meassurement']) < float(alert['min']) and 
+                    float(meassurement['meassurement']) > float(alert['max'])):
                     activeAlert(alert)
