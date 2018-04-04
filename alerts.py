@@ -28,8 +28,8 @@ def getAlertsList():
     alertsList = []
     for name in alerts.sections():
         alert = alerts[name]
-        alertList.append()
-    return alertList
+        alertsList.append()
+    return alertsList
 
 def compareAlerts(sensorMeassurements):
     for alert in getAlertsList():
