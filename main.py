@@ -6,6 +6,7 @@ import getpass
 from dotenv import load_dotenv
 from callbacks import *
 from getsensors import *
+from alerts import *
 from time import sleep
 
 def initializeConnection(username, password, client_id, broker, port):
@@ -122,7 +123,10 @@ def main():
             topic = "/gustavoguerino2@gmail.com/{}/{}/{}/".format(getMAC(), sensor['name'], sensor['meassurementType'])
             data = generateObjetc(sensor['meassurement'] ,sensor['meassurementUnit'])
             sendData(topic,data)
+            # Check alerts
+            compareAlerts(sensorList)
             # Sleep 10 seconds and send data again
+            time.sleep(10)
 
 if __name__ == "__main__":
     # execute only if run as a script
