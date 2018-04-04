@@ -27,8 +27,7 @@ def getAlertsList():
     alerts.read("outputs.ini")
     alertsList = []
     for name in alerts.sections():
-        alert = alerts[name]
-        alertsList.append()
+        alertsList.append(alerts[name])
     return alertsList
 
 def compareAlerts(sensorMeassurements):
