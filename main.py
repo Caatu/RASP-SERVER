@@ -123,7 +123,7 @@ def main():
             data = generateObjetc(sensor['meassurement'] ,sensor['meassurementUnit'])
             sendData(topic,data)
             # Sleep 10 seconds and send data again
-        sleep(10)
+
 if __name__ == "__main__":
     # execute only if run as a script
     main()
