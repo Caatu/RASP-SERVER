@@ -4,18 +4,18 @@ import configparser
 
 def activeAlert(alert):
     if(alert['type'] == 'buzzerAlert'):
+        port = int(alert['gpio'])
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(int(alert['gpio']), GPIO.IN)
-        GPIO.setup(int(alert['gpio']), GPIO.OUT)
-
-        period = 1.0 / 3951 		 
+        GPIO.setup(port, GPIO.IN)
+        GPIO.setup(port, GPIO.OUT)
+        period = 1.0 / 3500		 
         delayValue = period / 2		 
-        numCycles = int((0.800 / 12) * frequency)	 
+        numCycles = int((0.800 / 12) * 3500)	 
         
         for i in range(numCycles):		
-            GPIO.output(buzzer_pin, True)	
+            GPIO.output(port, True)	
             time.sleep(delayValue)		
-            GPIO.output(buzzer_pin, False)	
+            GPIO.output(port, False)	
             time.sleep(delayValue)
 
 def getAlertsList():
@@ -35,6 +35,6 @@ def compareAlerts(sensorMeassurements):
         for meassurement in sensorMeassurements:
             if alert['sensorName'] == meassurement['name']:
                 # Check if the meassurement of the sensor is in the range of the alert
-                if(float(meassurement['meassurement']) < float(alert['min']) and 
+                if(float(meassurement['meassurement']) < float(alert['min']) or 
                     float(meassurement['meassurement']) > float(alert['max'])):
                     activeAlert(alert)

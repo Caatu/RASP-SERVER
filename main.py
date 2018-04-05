@@ -125,8 +125,8 @@ def main():
             sendData(topic,data)
             # Check alerts
             compareAlerts(sensorList)
-            # Sleep 10 seconds and send data again
-            time.sleep(10)
+            # Sleep 1 seconds and send data again
+        time.sleep(1)
 
 if __name__ == "__main__":
     # execute only if run as a script
