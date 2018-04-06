@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 import json, time, os, sys
 import paho.mqtt.client as mqtt
+import getpass
+
 from dotenv import load_dotenv
 from callbacks import *
 from getsensors import *
+from alerts import *
+from time import sleep
 
 def initializeConnection(username, password, client_id, broker, port):
     """
@@ -25,11 +29,11 @@ def initializeConnection(username, password, client_id, broker, port):
     client.on_message   =   on_message
     client.username_pw_set(username=username, password=password)
     print("Connecting to broker")
-    try:
-        client.connect(broker,port=port)
-    except:
-        print("Connection failed")
-        client.bad_connection_flag = True
+    #try:
+    client.connect(broker,port=port)
+    #except:
+    #    print("Connection failed")
+    #    client.bad_connection_flag = True
     client.loop_start()
     # Wait to connection success or error occur
     while not client.connected_flag and not client.bad_connection_flag:
@@ -51,17 +55,34 @@ def finish():
     sys.exit()
 
 
-def generateObjetc(name, measurement, unit):
+def generateObjetc(measurement, unit):
     """
         Generate an python dict and serialize to json object
     """
     data = {
-        'name': name,
         'measurement': measurement,
         'unit': unit
     }
     return json.dumps(data)
 
+def getMAC():
+  # Return the MAC address of the specified interface
+  try:
+    str = open('/sys/class/net/%s/address' % getEthName()).read()
+  except:
+    str = "00:00:00:00:00:00"
+  return str[0:17]
+
+def getEthName():
+  # Get name of the Ethernet interface
+  try:
+    for root,dirs,files in os.walk('/sys/class/net'):
+      for dir in dirs:
+        if dir[:3]=='enx' or dir[:3]=='eth':
+          interface=dir
+  except:
+    interface="None"
+  return interface
 
 def sendData(topic, jsonObject):
     """
@@ -74,7 +95,7 @@ def subscribeTopic(topic):
     """
         Subscribe to an topic in connected client
     """
-    client.subscribe(otopic)
+    client.subscribe(topic)
 
 def main():
     """
@@ -87,20 +108,25 @@ def main():
     load_dotenv(verbose=True,dotenv_path = envpath)
     username = os.getenv("BROKER-USERNAME")
     password = os.getenv("BROKER-PASSWORD")
-    client_id = os.getenv("USERNAME")
+    client_id = getpass.getuser()
     broker = os.getenv("BROKER-IP")
-    port = os.getenv("BROKER-PORT")
+    port = int(os.getenv("BROKER-PORT"))
     # Initializing components
-    # initializeConnection(username,password,client_id,broker,port)
-    # Sending data TESTES APENAS
-    # Mensagens = 10
-    # print("Subscribing to topic")
-    # subscribeTopic('/gustavoguerino2@gmail.com/#')
-    # while Mensagens != 0:
-    #     Mensagens -= 1
-    #     time.sleep(1)
-    #     sendData('/gustavoguerino2@gmail.com/temp/', generateObjetc('Temperatura',20-Mensagens,'Celsius'))
-    print(getSensorsList())
+    initializeConnection(username,password,client_id,broker,port)
+    # Subscribe to receive all messages.... Tests...
+    subscribeTopic('/gustavoguerino2@gmail.com/#')
+    # Sending data
+    error = False
+    while(not error):
+        sensorList = getSensorsList() 
+        for sensor in sensorList:
+            topic = "/gustavoguerino2@gmail.com/{}/{}/{}/".format(getMAC(), sensor['name'], sensor['meassurementType'])
+            data = generateObjetc(sensor['meassurement'] ,sensor['meassurementUnit'])
+            sendData(topic,data)
+            # Check alerts
+            compareAlerts(sensorList)
+            # Sleep 1 seconds and send data again
+        time.sleep(1)
 
 if __name__ == "__main__":
     # execute only if run as a script

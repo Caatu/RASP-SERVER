@@ -1,3 +1,4 @@
+import Adafruit_DHT
 import configparser
 from gpiozero import CPUTemperature
 
@@ -18,7 +19,8 @@ def getSensorsList():
 def getSensorData(name, sensor):
     """
         Read the information in GPIO port of raspberry.
-        TODO: implement
+        
+        All sensortypes need have type unit and the result of meassurement
     """
     data = {
         'name': name,
@@ -27,5 +29,17 @@ def getSensorData(name, sensor):
     if(sensorType == 'cpuTemperatura'):
         cpu = CPUTemperature()
         data['meassurement'] = cpu.temperature
+        data['meassurementType'] = 'temperatura'
+        data['meassurementUnit'] = 'Celsius'
+    elif(sensorType == 'dht22Temperatura'):
+        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, int(sensor.get('gpio')))
+        data['meassurement'] = temperature
+        data['meassurementType'] = 'temperatura'
+        data['meassurementUnit'] = 'Celsius'
+    elif(sensorType == 'dht22Umidade'):
+        humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22, int(sensor.get('gpio')))
+        data['meassurement'] = humidity
+        data['meassurementType'] = 'umidade'
+        data['meassurementUnit'] = 'Porcentagem'
 
     return data
