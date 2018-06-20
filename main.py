@@ -126,7 +126,7 @@ def main():
             # Check alerts
             compareAlerts(sensorList)
             # Sleep 1 seconds and send data again
-        time.sleep(1)
+        time.sleep(3)
 
 if __name__ == "__main__":
     # execute only if run as a script

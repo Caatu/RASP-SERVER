@@ -25,3 +25,9 @@ def on_message(client, userdata, message):
     print("Message topic=",message.topic)
     print("Message qos=",message.qos)
     print("Message retain flag=",message.retain)
+    if(message.topic == "/gustavoguerino2@gmail.com/lampada"):
+        if("0" == int(str(message.payload.decode("utf-8")))):
+            print("!!!! Desliga essa porra de lampada desgracado!")
+        else:
+            print("!!!! Ja falei pra ligar essa lampada ? LIGA LOGO PORRA!")
+            
